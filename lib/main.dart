@@ -8,11 +8,13 @@ class ExpensesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: HomePage());
+    return MaterialApp(home: HomePage());
   }
 }
 
 class HomePage extends StatelessWidget {
+  HomePage({super.key});
+
   final transactions = [
     Transaction(
       id: 't1',
@@ -28,8 +30,6 @@ class HomePage extends StatelessWidget {
     ),
   ];
 
-  const HomePage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +39,41 @@ class HomePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Card(child: Text('Gráfico')),
-          Card(child: Text('Lista de Transações')),
+          Column(
+            children:
+                transactions.map((tr) {
+                  return Card(
+                    child: Row(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 10,
+                          ),
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.purple.shade50,
+                              width: 2,
+                            ),
+                          ),
+                          child: Text(
+                            tr.value.toString(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.purple,
+                            ),
+                          ),
+                        ),
+                        Column(
+                          children: [Text(tr.title), Text(tr.date.toString())],
+                        ),
+                      ],
+                    ),
+                  );
+                }).toList(),
+          ),
         ],
       ),
     );
