@@ -1,7 +1,13 @@
 import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
-main() => runApp(ExpensesApp());
+main() async {
+  Intl.defaultLocale = 'pt_BR';
+  await initializeDateFormatting('pt_BR', null);
+  runApp(ExpensesApp());
+}
 
 class ExpensesApp extends StatelessWidget {
   const ExpensesApp({super.key});
@@ -58,7 +64,10 @@ class HomePage extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            tr.value.toString(),
+                            NumberFormat.currency(
+                              symbol: 'R\$',
+                              decimalDigits: 2,
+                            ).format(tr.value),
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -77,7 +86,7 @@ class HomePage extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              tr.date.toString(),
+                              DateFormat('d MMM y').format(tr.date),
                               style: TextStyle(color: Colors.grey.shade700),
                             ),
                           ],
