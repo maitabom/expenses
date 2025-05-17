@@ -48,6 +48,8 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       transactions.add(pivot);
     });
+
+    Navigator.of(context).pop();
   }
 
   @override
