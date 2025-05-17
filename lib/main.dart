@@ -1,4 +1,4 @@
-import 'package:expenses/components/transaction_user.dart';
+import 'package:expenses/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -15,22 +15,5 @@ class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(home: HomePage());
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Despesas Pessoais')),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[Card(child: Text('Gráfico')), TransactionUser()],
-        ),
-      ),
-    );
   }
 }
