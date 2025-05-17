@@ -46,7 +46,9 @@ class _TransactionFormState extends State<TransactionForm> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                  style: TextButton.styleFrom(foregroundColor: Colors.purple),
+                  style: TextButton.styleFrom(
+                    foregroundColor: Theme.of(context).primaryColor,
+                  ),
                   onPressed: submitForm,
                   child: Text('Nova Transação'),
                 ),
