@@ -1,8 +1,54 @@
-import 'package:expenses/components/transaction_user.dart';
+import 'dart:math';
+
+import 'package:expenses/components/transaction_form.dart';
+import 'package:expenses/components/transaction_list.dart';
+import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final transactions = [
+    Transaction(
+      id: 't1',
+      title: 'Tenis de Corrida',
+      value: 310.76,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Conta de Luz',
+      value: 180.90,
+      date: DateTime.now(),
+    ),
+  ];
+
+  openTransactionModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        return TransactionForm(addTransaction);
+      },
+    );
+  }
+
+  addTransaction(String title, double value) {
+    final pivot = Transaction(
+      id: Random().nextDouble().toString(),
+      title: title,
+      value: value,
+      date: DateTime.now(),
+    );
+
+    setState(() {
+      transactions.add(pivot);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,18 +56,24 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Despesas Pessoais'),
         actions: [
-          IconButton(icon: Icon(Icons.add_circle_outline), onPressed: () {}),
+          IconButton(
+            icon: Icon(Icons.add_circle_outline),
+            onPressed: () => openTransactionModal(context),
+          ),
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[Card(child: Text('Gráfico')), TransactionUser()],
+          children: <Widget>[
+            Card(child: Text('Gráfico')),
+            TransactionList(transactions),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        onPressed: () => openTransactionModal(context),
         child: Icon(Icons.add),
-        onPressed: () {},
       ),
     );
   }
