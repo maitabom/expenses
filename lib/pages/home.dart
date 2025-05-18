@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:expenses/components/chart.dart';
 import 'package:expenses/components/transaction_form.dart';
 import 'package:expenses/components/transaction_list.dart';
 import 'package:expenses/models/transaction.dart';
@@ -14,6 +15,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<Transaction> transactions = [];
+
+  List<Transaction> get recentTransactions {
+    return transactions.where((transaction) {
+      final datePivot = DateTime.now().subtract(Duration(days: 7));
+      return transaction.date.isAfter(datePivot);
+    }).toList();
+  }
 
   openTransactionModal(BuildContext context) {
     showModalBottomSheet(
@@ -55,7 +63,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Card(child: Text('Gráfico')),
+            Chart(recentTransactions),
             TransactionList(transactions),
           ],
         ),
