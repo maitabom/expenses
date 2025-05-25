@@ -23,6 +23,9 @@ class ExpensesApp extends StatelessWidget {
           primary: Colors.purple,
           secondary: Colors.amber.shade700,
         ),
+        textTheme: TextTheme(
+          titleMedium: TextStyle(fontWeight: FontWeight.bold),
+        ),
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.purple,
           foregroundColor: Colors.white,
