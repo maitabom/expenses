@@ -32,12 +32,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  addTransaction(String title, double value) {
+  addTransaction(String title, double value, DateTime date) {
     final pivot = Transaction(
       id: Random().nextDouble().toString(),
       title: title,
       value: value,
-      date: DateTime.now(),
+      date: date,
     );
 
     setState(() {
