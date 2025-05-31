@@ -16,6 +16,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final List<Transaction> transactions = [];
 
+  bool _showChart = false;
+
   List<Transaction> get recentTransactions {
     return transactions.where((transaction) {
       final datePivot = DateTime.now().subtract(Duration(days: 7));
@@ -78,14 +80,29 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            SizedBox(
-              height: availableHeight * 0.3,
-              child: Chart(recentTransactions),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Exibir Gráfico'),
+                Switch(
+                  value: _showChart,
+                  onChanged: (value) {
+                    setState(() {
+                      _showChart = value;
+                    });
+                  },
+                ),
+              ],
             ),
-            SizedBox(
-              height: availableHeight * 0.7,
-              child: TransactionList(transactions, deleteTransaction),
-            ),
+            _showChart
+                ? SizedBox(
+                  height: availableHeight * 0.3,
+                  child: Chart(recentTransactions),
+                )
+                : SizedBox(
+                  height: availableHeight * 0.7,
+                  child: TransactionList(transactions, deleteTransaction),
+                ),
           ],
         ),
       ),
