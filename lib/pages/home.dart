@@ -65,10 +65,6 @@ class _HomePageState extends State<HomePage> {
     final appBar = AppBar(
       title: Text('Despesas Pessoais'),
       actions: [
-        IconButton(
-          icon: Icon(Icons.add_circle_outline),
-          onPressed: () => openTransactionModal(context),
-        ),
         if (isLandscape)
           IconButton(
             icon: Icon(_showChart ? Icons.list : Icons.show_chart),
@@ -78,6 +74,10 @@ class _HomePageState extends State<HomePage> {
               });
             },
           ),
+        IconButton(
+          icon: Icon(Icons.add_circle_outline),
+          onPressed: () => openTransactionModal(context),
+        ),
       ],
     );
 
