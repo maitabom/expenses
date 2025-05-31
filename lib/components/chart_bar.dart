@@ -14,41 +14,45 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 20,
-          child: FittedBox(child: Text('R\$ ${value.toStringAsFixed(2)}')),
-        ),
-        SizedBox(height: 5),
-        SizedBox(
-          height: 60,
-          width: 10,
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(220, 220, 220, 1),
-                  border: Border.all(color: Colors.grey, width: 1.0),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-              ),
-              FractionallySizedBox(
-                heightFactor: percentage > 0.0 ? percentage : 0.0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Theme.of(context).primaryColor,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Column(
+          children: [
+            SizedBox(
+              height: constraints.maxHeight * 0.1,
+              child: FittedBox(child: Text('R\$ ${value.toStringAsFixed(2)}')),
+            ),
+            SizedBox(height: constraints.maxHeight * 0.025),
+            SizedBox(
+              height: constraints.maxHeight * 0.75,
+              width: 10,
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(220, 220, 220, 1),
+                      border: Border.all(color: Colors.grey, width: 1.0),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
                   ),
-                ),
+                  FractionallySizedBox(
+                    heightFactor: percentage > 0.0 ? percentage : 0.0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
-        SizedBox(height: 5),
-        Text(label),
-      ],
+            ),
+            SizedBox(height: constraints.maxHeight * 0.025),
+            FittedBox(child: Text(label)),
+          ],
+        );
+      },
     );
   }
 }
