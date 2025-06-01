@@ -44,52 +44,59 @@ class _TransactionFormState extends State<TransactionForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            TextField(
-              decoration: InputDecoration(labelText: 'Titulo'),
-              controller: titleController,
-            ),
-            TextField(
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
-              decoration: InputDecoration(labelText: 'Valor'),
-              controller: valueController,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    selectedDate == null
-                        ? 'Nenhuma data selecionada'
-                        : DateFormat('dd/MM/y').format(selectedDate!),
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: 10,
+            right: 10,
+            left: 10,
+            bottom: 10 + MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(labelText: 'Titulo'),
+                controller: titleController,
+              ),
+              TextField(
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                decoration: InputDecoration(labelText: 'Valor'),
+                controller: valueController,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      selectedDate == null
+                          ? 'Nenhuma data selecionada'
+                          : DateFormat('dd/MM/y').format(selectedDate!),
+                    ),
                   ),
-                ),
-                ElevatedButton(
-                  onPressed: _showDatePicker,
-                  child: Text(
-                    'Selecionar data',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ElevatedButton(
+                    onPressed: _showDatePicker,
+                    child: Text(
+                      'Selecionar data',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  style: TextButton.styleFrom(
-                    foregroundColor: Theme.of(context).primaryColor,
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      foregroundColor: Theme.of(context).primaryColor,
+                    ),
+                    onPressed: submitForm,
+                    child: Text('Nova Transação'),
                   ),
-                  onPressed: submitForm,
-                  child: Text('Nova Transação'),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
