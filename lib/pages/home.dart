@@ -96,11 +96,12 @@ class _HomePageState extends State<HomePage> {
         appBar.preferredSize.height -
         MediaQuery.of(context).padding.top;
 
-    final bodyPage = SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          /* if (isLandscape)
+    final bodyPage = SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            /* if (isLandscape)
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -115,17 +116,18 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ), */
-          if (_showChart || !isLandscape)
-            SizedBox(
-              height: availableHeight * (isLandscape ? 0.7 : 0.3),
-              child: Chart(recentTransactions),
-            ),
-          if (!_showChart || !isLandscape)
-            SizedBox(
-              height: availableHeight * 0.7,
-              child: TransactionList(transactions, deleteTransaction),
-            ),
-        ],
+            if (_showChart || !isLandscape)
+              SizedBox(
+                height: availableHeight * (isLandscape ? 0.7 : 0.3),
+                child: Chart(recentTransactions),
+              ),
+            if (!_showChart || !isLandscape)
+              SizedBox(
+                height: availableHeight * 0.7,
+                child: TransactionList(transactions, deleteTransaction),
+              ),
+          ],
+        ),
       ),
     );
 
